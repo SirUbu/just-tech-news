@@ -1,3 +1,4 @@
+// require dependencies
 const { Model, DatTypes, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
@@ -40,4 +41,5 @@ Post.init(
     }
 );
 
+// export Post model
 module.exports = Post;
