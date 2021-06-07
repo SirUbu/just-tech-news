@@ -1,6 +1,6 @@
 // require dependencies
-const User = require('./User');
 const Post = require('./Post');
+const User = require('./User');
 
 // create associations between models
 User.hasMany(Post, {
