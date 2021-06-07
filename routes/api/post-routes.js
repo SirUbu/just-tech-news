@@ -1,7 +1,7 @@
 // require dependencies
 const sequelize = require('../../config/connection');
 const router = require('express').Router();
-const { User, Post, Vote } = require('../../models');
+const { User, Post, Vote, Comment } = require('../../models');
 
 // get all posts
 router.get('/', (req,res) => {
@@ -19,6 +19,20 @@ router.get('/', (req,res) => {
         ],
         order: [['created_at', 'DESC']],
         include: [
+            {
+                model: Comment,
+                attributes: [
+                    'id',
+                    'comment_text',
+                    'post_id',
+                    'user_id',
+                    'created_at'
+                ],
+                include: {
+                    model: User,
+                    attributes: ['username']
+                }
+            },
             {
                 model: User,
                 attributes: ['username']
@@ -48,6 +62,20 @@ router.get('/:id', (req, res) => {
             ]
         ],
         include: [
+            {
+                model: Comment,
+                attributes: [
+                    'id',
+                    'comment_text',
+                    'post_id',
+                    'user_id',
+                    'created_at'
+                ],
+                include: {
+                    model: User,
+                    attributes: ['username']
+                }
+            },
             {
                 model: User,
                 attributes: ['username']
