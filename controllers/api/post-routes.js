@@ -18,13 +18,7 @@ router.get('/', (req,res) => {
         include: [
             {
                 model: Comment,
-                attributes: [
-                    'id',
-                    'comment_text',
-                    'post_id',
-                    'user_id',
-                    'created_at'
-                ],
+                attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
                 include: {
                     model: User,
                     attributes: ['username']
@@ -59,13 +53,7 @@ router.get('/:id', (req, res) => {
         include: [
             {
                 model: Comment,
-                attributes: [
-                    'id',
-                    'comment_text',
-                    'post_id',
-                    'user_id',
-                    'created_at'
-                ],
+                attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
                 include: {
                     model: User,
                     attributes: ['username']
@@ -91,15 +79,17 @@ router.get('/:id', (req, res) => {
 // create a new post
 router.post('/', (req, res) => {
     // expects {title: 'Taskmaster Goes Public!', post_url: 'https://taskmaster.com/press', user_id: 1}
-    Post.create({
-        title: req.body.title,
-        post_url: req.body.post_url,
-        user_id: req.body.user_id
-    }).then(dbPostData => res.json(dbPostData)
-    ).catch(err => {
-        console.log(err);
-        res.status(500).json(err);
-    });
+    if (req.session) {
+        Post.create({
+            title: req.body.title,
+            post_url: req.body.post_url,
+            user_id: req.session.user_id
+        }).then(dbPostData => res.json(dbPostData)
+        ).catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+    }
 });
 
 // PUT /api/posts/upvote
