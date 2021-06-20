@@ -75,7 +75,7 @@ router.post('/', withAuth, (req, res) => {
 });
 
 // POST for user login
-router.post('/login', withAuth, (req, res) => {
+router.post('/login', (req, res) => {
     // expects {email: 'thesirubu@gmail.com', password: 'password1234'}
     User.findOne({
         where: {
