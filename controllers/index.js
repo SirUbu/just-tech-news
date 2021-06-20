@@ -1,14 +1,14 @@
 // require dependencies
 const router = require('express').Router();
+
 const apiRoutes = require('./api');
+const homeRoutes = require('./home-routes');
+const dashboardRoutes = require('./dashboard-routes');
 
 // set url path for apis
+router.use('/', homeRoutes);
 router.use('/api', apiRoutes);
-
-// set url path for any other path
-router.use((req, res) => {
-    res.status(404).end();
-});
+router.use('/dashboard', dashboardRoutes);
 
 // export all router routes
 module.exports = router;
